@@ -1,20 +1,29 @@
 import cron from 'node-cron';
-import axios from 'axios';
+import dotenv from 'dotenv';
 
-export async function setApiDetails() {
-  cron.schedule('0 3 * * *', async () => {
-    const filesNames: string[] = await getFilesNames();
-  });
-}
+import { getFiles, getFilesNames } from '../services/cronService.js';
 
-async function getFilesNames() {
+dotenv.config();
+
+// cron.schedule('0 3 * * *', async () => {
+//   try {
+//     const filesNames: string[] = await getFilesNames();
+//     const files = getFiles(filesNames);
+//   } catch (e) {
+//     console.log(e);
+//   }
+// });
+
+async function cronFunction() {
   try {
-    const { data } = await axios.get('https://challenges.coode.sh/food/data/json/index.txt');
-    const lines: string[] = data.split(/\r?\n/);
-    lines.pop();
-    return lines;
+    console.log('Starting CRON...');
+    const filesNames: string[] = await getFilesNames();
+    const files = await getFiles(filesNames);
+    console.log(files);
+    console.log('CRON finished!');
   } catch (e) {
     console.log(e);
-    return;
   }
 }
+
+cronFunction();
