@@ -5,7 +5,7 @@ import { getFiles, getFilesNames, saveItems } from '../services/cronService.js';
 
 dotenv.config();
 
-export let lastCronTime: Date;
+export let lastCronTime: Date | string = 'First CRON schedule to 3AM';
 
 export default function startCron() {
   cron.schedule('0 3 * * *', async () => {

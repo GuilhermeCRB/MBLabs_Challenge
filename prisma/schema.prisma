@@ -12,7 +12,7 @@ datasource db {
 
 model Item {
   id               String @id @default(auto()) @map("_id") @db.ObjectId
-  code             String
+  code             String @unique
   status           Status @default(published)
   imported_t       String
   url              String
