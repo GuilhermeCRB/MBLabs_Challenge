@@ -7,3 +7,10 @@ export async function findProduct(code: string) {
     },
   });
 }
+
+export async function findManyProducts(limit: string, offset: string) {
+  return await db.item.findMany({
+    take: Number(limit),
+    skip: Number(offset),
+  });
+}

@@ -7,6 +7,7 @@ export function sanitizeInputs(properties: string[]) {
 
     if (req.body) object = req.body;
     if (req.params) object = req.params;
+    if (req.query) object = req.query;
 
     const sanitizedObject = {};
 
