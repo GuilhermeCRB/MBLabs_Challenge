@@ -5,10 +5,13 @@ import { getFiles, getFilesNames, saveItems } from '../services/cronService.js';
 
 dotenv.config();
 
+export let lastCronTime: Date;
+
 export default function startCron() {
   cron.schedule('0 3 * * *', async () => {
     try {
       console.log('Starting CRON...');
+      lastCronTime = new Date();
       const filesNames: string[] = await getFilesNames();
       await getFiles(filesNames);
       await saveItems(filesNames);

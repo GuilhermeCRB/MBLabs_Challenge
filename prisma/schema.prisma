@@ -44,3 +44,10 @@ enum Status {
   trash
   published
 }
+
+model controllCollection {
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  test String @unique
+
+  @@map("controllCollection")
+}
