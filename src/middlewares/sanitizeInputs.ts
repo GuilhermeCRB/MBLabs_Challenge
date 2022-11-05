@@ -1,24 +1,36 @@
 import { Request, Response, NextFunction } from 'express';
 import { stripHtml } from 'string-strip-html';
 
-export function sanitizeInputs(properties: string[]) {
+export function sanitizeInputs() {
   return (req: Request, res: Response, next: NextFunction) => {
-    let object: any;
+    if (req.params) {
+      const object = req.params;
+      res.locals.params = sanitizeObject(object);
+    }
 
-    if (req.body) object = req.body;
-    if (req.params) object = req.params;
-    if (req.query) object = req.query;
+    if (req.body) {
+      const object = req.body;
+      res.locals.body = sanitizeObject(object);
+    }
 
-    const sanitizedObject = {};
-
-    properties.forEach((propertie) => {
-      if (object[propertie]) {
-        sanitizedObject[propertie] = stripHtml(object[propertie]).result;
-      }
-    });
-
-    res.locals.data = sanitizedObject;
+    if (req.query) {
+      const object = req.query;
+      res.locals.query = sanitizeObject(object);
+    }
 
     next();
   };
+}
+
+function sanitizeObject(object: any) {
+  const sanitizedObject = {};
+  const keys = Object.getOwnPropertyNames(object);
+
+  keys.forEach((key) => {
+    if (object[key]) {
+      sanitizedObject[key] = stripHtml(object[key]).result;
+    }
+  });
+
+  return sanitizedObject;
 }
