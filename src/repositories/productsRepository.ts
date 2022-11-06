@@ -2,7 +2,7 @@ import db from '../config/database.js';
 import { CreateItem } from '../factories/cronFactory.js';
 import { OptionalEntity } from '../utils/optionalEntityUtil.js';
 
-export async function findProduct(code: string) {
+export async function findProduct(code: number) {
   return await db.item.findFirst({
     where: {
       status: { not: 'trash' },
@@ -19,16 +19,23 @@ export async function findManyProducts(limit: string, offset: string) {
   });
 }
 
-export async function updateFoundProduct(code: string, data: OptionalEntity<CreateItem>) {
+export async function updateFoundProduct(code: number, data: OptionalEntity<CreateItem>) {
   return await db.item.update({
     where: { code },
     data,
   });
 }
 
-export async function deleteFoundProduct(code: string) {
+export async function deleteFoundProduct(code: number) {
   return await db.item.update({
     where: { code },
     data: { status: 'trash' },
   });
 }
+
+export const productsRepository = {
+  findProduct,
+  findManyProducts,
+  updateFoundProduct,
+  deleteFoundProduct,
+};

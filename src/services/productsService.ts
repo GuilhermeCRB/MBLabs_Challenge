@@ -8,7 +8,7 @@ import {
   deleteFoundProduct,
 } from '../repositories/productsRepository.js';
 
-export async function getProduct(code: string) {
+export async function getProduct(code: number) {
   const singleProduct = await findProduct(code);
   if (!singleProduct) throw notFoundError('Product not found');
   return singleProduct;
@@ -19,10 +19,10 @@ export async function getProductsList(limit: string, offset: string) {
   return singleProduct;
 }
 
-export async function updateUserProduct(code: string, data: OptionalEntity<CreateItem>) {
-  await updateFoundProduct(code, { ...data, last_modified_t: String(Date.now()) });
+export async function updateUserProduct(code: number, data: OptionalEntity<CreateItem>) {
+  await updateFoundProduct(code, { ...data, last_modified_t: Date.now() });
 }
 
-export async function deleteUserProduct(code: string) {
+export async function deleteUserProduct(code: number) {
   await deleteFoundProduct(code);
 }
