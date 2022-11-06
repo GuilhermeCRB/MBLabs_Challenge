@@ -5,6 +5,7 @@ import { OptionalEntity } from '../utils/optionalEntityUtil.js';
 export async function findProduct(code: string) {
   return await db.item.findFirst({
     where: {
+      status: { not: 'trash' },
       code,
     },
   });
@@ -12,6 +13,7 @@ export async function findProduct(code: string) {
 
 export async function findManyProducts(limit: string, offset: string) {
   return await db.item.findMany({
+    where: { status: { not: 'trash' } },
     take: Number(limit),
     skip: Number(offset),
   });
