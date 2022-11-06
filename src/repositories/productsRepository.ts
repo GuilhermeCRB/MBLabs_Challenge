@@ -23,3 +23,10 @@ export async function updateFoundProduct(code: string, data: OptionalEntity<Crea
     data,
   });
 }
+
+export async function deleteFoundProduct(code: string) {
+  return await db.item.update({
+    where: { code },
+    data: { status: 'trash' },
+  });
+}

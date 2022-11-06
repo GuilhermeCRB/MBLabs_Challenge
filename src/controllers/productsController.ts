@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { CreateItem } from '../factories/cronFactory.js';
 
-import { getProduct, getProductsList, updateUserProduct } from '../services/productsService.js';
+import { deleteUserProduct, getProduct, getProductsList, updateUserProduct } from '../services/productsService.js';
 import { OptionalEntity } from '../utils/optionalEntityUtil.js';
 
 export async function getSingleProduct(req: Request, res: Response) {
@@ -21,4 +21,10 @@ export async function updateProduct(req: Request, res: Response) {
   const data: OptionalEntity<CreateItem> = res.locals.body;
   await updateUserProduct(code, data);
   res.sendStatus(200);
+}
+
+export async function deleteProduct(req: Request, res: Response) {
+  const code: string = res.locals.params.code;
+  await deleteUserProduct(code);
+  res.sendStatus(204);
 }
