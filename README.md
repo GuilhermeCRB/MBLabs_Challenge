@@ -91,6 +91,11 @@ Em seguida, gere o modelo do banco de dados com o Prisma
 ```
 npx prisma generate
 ```
+Depois, faça o build do código TypeScript
+
+```
+npm run build
+```
 
 Por fim, basta iniciar o sevidor
 
