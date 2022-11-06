@@ -11,7 +11,7 @@ export async function findProduct(code: number) {
   });
 }
 
-export async function findManyProducts(limit: string, offset: string) {
+export async function findManyProducts(limit = '10', offset = '0') {
   return await db.item.findMany({
     where: { status: { not: 'trash' } },
     take: Number(limit),
