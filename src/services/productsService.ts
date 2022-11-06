@@ -17,5 +17,5 @@ export async function getProductsList(limit: string, offset: string) {
 export async function updateUserProduct(code: string, data: OptionalEntity<CreateItem>) {
   const userProduct = await findProduct(code);
   if (!userProduct) throw notFoundError('Product not found');
-  await updateFoundProduct(code, data);
+  await updateFoundProduct(code, { ...data, last_modified_t: String(Date.now()) });
 }
