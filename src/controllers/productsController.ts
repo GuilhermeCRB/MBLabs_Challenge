@@ -5,8 +5,8 @@ import { deleteUserProduct, getProduct, getProductsList, updateUserProduct } fro
 import { OptionalEntity } from '../utils/optionalEntityUtil.js';
 
 export async function getSingleProduct(req: Request, res: Response) {
-  const code: number = res.locals.params.code;
-  const singleProduct = await getProduct(code);
+  const code: string = res.locals.params.code;
+  const singleProduct = await getProduct(Number(code));
   res.status(200).send(singleProduct);
 }
 
@@ -17,14 +17,14 @@ export async function getAllProducts(req: Request, res: Response) {
 }
 
 export async function updateProduct(req: Request, res: Response) {
-  const code: number = res.locals.params.code;
+  const code: string = res.locals.params.code;
   const data: OptionalEntity<CreateItem> = res.locals.body;
-  await updateUserProduct(code, data);
+  await updateUserProduct(Number(code), data);
   res.sendStatus(200);
 }
 
 export async function deleteProduct(req: Request, res: Response) {
-  const code: number = res.locals.params.code;
-  await deleteUserProduct(code);
+  const code: string = res.locals.params.code;
+  await deleteUserProduct(Number(code));
   res.sendStatus(204);
 }

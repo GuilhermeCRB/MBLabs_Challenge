@@ -11,6 +11,6 @@ const products = router();
 products
   .get('/products/:code', sanitizeInputs(), getSingleProduct)
   .get('/products', sanitizeInputs(), getAllProducts)
-  .put('/products/:code', validateProduct, sanitizeInputs(), validateSchema(productSchema), updateProduct)
-  .delete('/products/:code', validateProduct, sanitizeInputs(), deleteProduct);
+  .put('/products/:code', sanitizeInputs(), validateProduct, validateSchema(productSchema), updateProduct)
+  .delete('/products/:code', sanitizeInputs(), validateProduct, deleteProduct);
 export default products;
